@@ -1,0 +1,67 @@
+{% extends base.html %}
+
+{% block title %}Register{% endblock %}
+
+{% block css %}
+<link href="public/static/css/login.css" rel="stylesheet">
+
+
+{% endblock %}
+
+{% block js %}
+<script src="public/static/js/register.js"></script>
+
+
+{% endblock %}
+
+{% block content %}
+<div class="signup-container">
+    <form class="form-sign" method="post">
+        <div class="form-group">
+            <h1 class="h3 mb-3 font-weight-normal">Please Register</h1>
+
+            <label for="inputNum" class="sr-only">Nome</label>
+            <input name="name" type="text" id="nameInput" class="form-control mt-2"
+                   placeholder="Name" required>
+
+            <label for="inputNum" class="sr-only">Cognome</label>
+            <input name="surname" type="text" id="surnameInput" class="form-control mt-2"
+                   placeholder="Surname" required>
+
+            <label for="inputUsername" class="sr-only">Username</label>
+            <input name="username" type="name" id="inputUsername" class="form-control mt-2" placeholder="Username" required>
+
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input name="email" type="email" id="inputEmail" class="form-control mt-2" placeholder="Email address"
+                   required>
+
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" type="password" id="inputPassword" class="form-control mt-2" placeholder="Password"
+                   required>
+
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password2" type="password" id="inputPassword2" class="form-control mt-2"
+                   placeholder="Repeat password" required>
+
+            <label for="inputNum" class="sr-only">Numero di telefono</label>
+            <input name="telephone_number" type="text" id="inputNum" class="form-control mt-2"
+                   placeholder="Telephone number" required>
+
+            <div class="input-group mt-2">
+                <input name="num_document" type="text" id="DocNum" class="form-control" placeholder="Document number"
+                       required>
+                <span class="input-group-btn ml-2 p-0">
+                    <select name="type_document" class="form-control m-0 h-100">
+                        <option value="patente">Patente di guida</option>
+                        <option value="passaporto">Passaporto</option>
+                        <option value="carta_identita">Carta identità</option>
+                    </select>
+                </span>
+            </div>
+            <div class="mt-3"><h3 id="error_message" class="text-danger">{{ $error }}</h3></div>
+            <button id="btn_submit" class="btn btn-lg btn-primary btn-block mt-4" type="submit">Register</button>
+            <footer>Already a member? <a href="login">Login here</a></footer>
+        </div>
+    </form>
+</div>
+{% endblock %}

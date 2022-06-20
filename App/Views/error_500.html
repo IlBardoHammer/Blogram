@@ -1,0 +1,29 @@
+{% extends base.html %}
+
+{% block title %}Error{% endblock %}
+
+{% block css %}
+<link href="public/static/css/error_500.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="error-template">
+                <h1>
+                    Oops!</h1>
+                <h2>
+                    500 Unexpected Error :(</h2>
+                <div class="error-details">
+                    Sorry, an error has occured!
+                </div>
+                <div class="error-actions">
+                    <a href="home" class="btn btn-outline-primary btn-lg"><span class="glyphicon glyphicon-home"></span>
+                        Take Me Home </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

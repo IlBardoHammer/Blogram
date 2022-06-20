@@ -1,0 +1,39 @@
+{% extends base.html %}
+
+{% block title %}Blogs{% endblock %}
+
+{% block content %}
+{% if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true): %}
+<a href="creablog" role="button">
+    <button type="button" class="btn btn-primary btn-lg btn-block"> + AGGIUNGI BLOG</button>
+</a>
+{% endif %}
+<br><br>
+    <div class="row">
+    {% if (count($blogs) > 0): %}
+    {% foreach($blogs as $blog): %}
+        {% include templating/single_block_blog.html %}
+    {% endforeach %}
+    {% else: %}
+    <h1>Non sono presenti blog! :(</h1>
+    {% endif %}
+</div>
+
+<div style="text-align: center" class="margin_top_30">
+    Pagina:
+    {% for ($i = 1; $i < $pagination+1; $i++): %}
+        {% if ($actual_page != $i): %}
+            <a class="" href="?page={{$i}}">
+        {% else: %}
+                <span class="pagination-selected text-primary">
+        {% endif %}
+            {{$i}}
+        {% if ($actual_page != $i): %}
+            </a>
+        {% else: %}
+                </span>
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% endblock %}

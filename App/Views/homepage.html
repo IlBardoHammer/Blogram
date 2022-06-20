@@ -1,0 +1,57 @@
+{% extends base.html %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="titlepage">
+            <h2 class="">Welcome in&nbsp;&nbsp;<img id="logotipo_home" src="public/static/images/blogram_scritta.png"></h2>
+            <span>There are currently {{$n_blogs}} blogs for a total of {{$n_posts}} posts!</span>
+        </div>
+    </div>
+</div>
+
+<h1 class="mt-5 text-theme-color mb-5">Most visited blogs</h1>
+<div class="row">
+    {% foreach($blogs as $blog): %}
+        {% include templating/single_block_blog.html %}
+    {% endforeach %}
+</div>
+
+<hr>
+
+<h1 class="mt-5 text-theme-color mb-5">Most visited post</h1>
+<div class="row">
+    {% foreach($posts as $post): %}
+        {% include templating/single_block_post.html %}
+    {% endforeach %}
+</div>
+
+<hr>
+
+<h1 class="mt-5 text-theme-color mb-2">Most visited categories</h1>
+<div class="row">
+    {% foreach($arguments as $argument): %}
+    <div class="col-12 padding_bottom2">
+        <a href="blogs?id_argument={{$argument['id']}}"><h2>{{$argument['name']}} ({{$argument["visite"]}} visite)</h2>
+        </a>
+    </div>
+    {% endforeach %}
+</div>
+
+<hr>
+
+<h1 class="mt-5 text-theme-color mb-2">Most popular authors</h1>
+<div class="row">
+    {% foreach($authors as $author): %}
+    <div class="col-12 padding_bottom2">
+        <a href="blogs?id_author={{$author['id']}}"><h2>{{$author['username']}} ({{$author["blogs_count"]}} blog)</h2>
+        </a>
+    </div>
+    {% endforeach %}
+</div>
+
+<hr>
+{% endblock %}

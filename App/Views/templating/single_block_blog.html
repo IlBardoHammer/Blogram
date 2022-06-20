@@ -1,0 +1,32 @@
+<div class="col-md-6 padding_bottom2" style="margin-bottom: 50px;">
+    <h1><a href="blog?id={{$blog['id']}}">{{$blog['name']}}</a></h1>
+    <div class="our_img">
+        <figure>
+            <a href="blog?id={{$blog['id']}}"><img style="width: 540px; height: 336px;border: 1px solid #DDD;" src="public/static/contents/blog_images/{{ $blog['path_copertina'] ?: 'default.png' }}" alt="#"/></a>
+        </figure>
+    </div>
+    <div>
+    </div>
+    <div class="our_text_box three_box">
+        <div>
+            <span><b>Category:</b> {{ $blog["parent_argument_name"]?ucfirst($blog["parent_argument_name"])." -> ":"" }} {{ ucfirst($blog["argument_name"]) }}</span>
+        </div>
+        <div>
+            <span>
+                <b>Author:</b> @{{ $blog["author_username"] }} {% if (array_key_exists("username", $_SESSION) && $_SESSION["username"] == $blog['author_username']): %} <span class="badge badge-info">You</span> {% endif %}
+            </span>
+        </div>
+        <div style="margin-bottom: 10px;">
+            {% if($blog["coauthor_username"] != null): %}
+                <b>Co-Author:</b> @{{ $blog["coauthor_username"] }} {% if (array_key_exists("username", $_SESSION) && $_SESSION["username"] == $blog['coauthor_username']): %} <span class="badge badge-info">You</span> {% endif %}
+            {% else: %}
+            <b>Co-Author:</b>
+            {% endif %}
+        </div>
+
+        <div>
+            <a href="blog?id={{$blog['id']}}"><button class="btn">VIEW BLOG</button></a>
+            <span>({{$blog["visite"]}} visite)</span>
+        </div>
+    </div>
+</div>

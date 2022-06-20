@@ -1,0 +1,106 @@
+{% extends base.html %}
+
+{% block title %}{{$post['title']}}{% endblock %}
+
+{% block content %}
+
+<div style="position: absolute; left: 50px;">
+    <a href="blog?id={{$post['id_blog']}}">
+        <button class="btn btn-primary"><i class="fa fa-angle-left"></i> {{$post['blog_name']}}</button>
+    </a>
+</div>
+
+<div class="text-center mt-5 w-100" style="clear:both;">
+    <h1 class="" style="font-size:2.5rem;">{{$post["title"]}}</h1>
+
+    <img style="width: 70%; border: 3px #00b5f0 solid; "
+         src="public/static/contents/post_images/{{ explode(',',$post['images'])[0] ?: 'default.png' }}" alt="#" class="mb-2 blog_copertina"/>
+
+    {% if (sizeof(explode(',',$post['images'])) > 1): %}
+
+    {% foreach (explode(',',$post['images']) as $k => $v): %}
+    {% if ($k < 1): %}
+    {% continue; %}
+    {% endif %}
+
+    <img style="margin: 10px 5px; width: 30%; border: 1px #00b5f0 solid; "
+         src="public/static/contents/post_images/{{ $v ?: 'default.png' }}" alt="#" class="mb-2 blog_copertina"/>
+
+    {% endforeach %}
+
+    {% endif %}
+
+    {% if (array_key_exists("id", $_SESSION) && $_SESSION["id"] == $post['id_author']): %}
+    <div class="mt-2" style="">
+        <a href="deletepost?id={{$post['id']}}" onclick="return confirm('Are you sure?');">
+            <button class="btn btn-danger"><i class="fa fa-trash"></i> DELETE POST</button>
+        </a>
+    </div>
+    {% endif %}
+
+    <hr>
+
+    <div>
+        <h4>
+            <div class="label label-info postauthor">@{{$post['author_username']}} {% if (array_key_exists("username",
+                $_SESSION) && $_SESSION["username"] == $post['author_username']): %} <span
+                        class="badge badge-info">You</span> {% endif %} in "{{$post['blog_name']}}"
+            </div>
+        </h4>
+        <h5>
+            <i class="fa fa-calendar"></i>
+            {{$post['date_hours']}} <span>({{$post["visite"]}} views)</span>
+        </h5>
+    </div>
+
+    <hr>
+
+    <p>
+        {{$post['text'] != '' ? $post['text'] : "NO POST CONTENT"}}
+    </p>
+
+    <hr>
+    <div class="container mt-5" style="text-align: left !important;">
+        <h1>Comments ({{sizeof($comments)}})</h1>
+
+        {% foreach ($comments as $k => $comment): %}
+        <hr>
+        <div class="d-flex row">
+            <div class="col-md-8">
+                <div class="d-flex flex-column comment-section">
+                    <div class="bg-white p-2">
+                        <div class="d-flex flex-row user-info">
+                            <div class="d-flex flex-column justify-content-start">
+                                <span class="d-block font-weight-bold name">@{{ $comment["author_username"] ?: "Visitor". $comment["id_visitor"]}} {% if (array_key_exists("username", $_SESSION) && $_SESSION["username"] == $comment["author_username"]): %} <span class="badge badge-info">You</span> {% endif %}</span>
+                                <span class="date text-black-50">
+                                    <i class="fa fa-calendar"></i> {{$comment["date_hours"]}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <p class="comment-text">{{$comment["text_comment"]}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endforeach %}
+    </div>
+
+    <hr>
+
+    <div class="bg-light p-2" style="text-align: left">
+        <h2>New comment</h2>
+        <form id="form_comment" action="post?id={{$post['id']}}" method="POST">
+            <div class="d-flex flex-row align-items-start">
+                <textarea name="comment" placeholder="add a new comment..." class="form-control ml-1 shadow-none textarea"></textarea>
+            </div>
+            <div class="mt-2 text-right">
+                <button class="btn btn-primary btn-sm shadow-none" type="submit">Post comment</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends base.html %}
+
+{% block title %}{{$blog["name"]}}{% endblock %}
+
+{% block content %}
+
+<div style="position: absolute; left: 50px;">
+        <a href="home"><button class="btn btn-primary"> <i class="fa fa-angle-left"></i> Homepage</button></a>
+</div>
+
+<div class="text-center mt-5 w-100" style="">
+
+    <h1 class="clear-both" style="font-size:2.5rem;">{{$blog["name"]}}</h1>
+
+    <img style="width: 80%; border: 3px #00b5f0 solid; " src="public/static/contents/blog_images/{{ $blog['path_copertina'] ?: 'default.png' }}" alt="#" class="mb-2 blog_copertina"/>
+
+    {% if (array_key_exists("id", $_SESSION) && $_SESSION["id"] == $blog['id_author']): %}
+    <div class="mt-2" style="">
+        <a href="editblog?id={{$blog['id']}}"><button class="btn btn-secondary mr-2"><i class="fa fa-pencil"></i> EDIT BLOG</button></a>
+        <a href="deleteblog?id={{$blog['id']}}" onclick="return confirm('Are you sure?');"><button class="btn btn-danger"><i class="fa fa-trash"></i> DELETE BLOG</button></a>
+    </div>
+    {% endif %}
+    <br>
+    {% if (array_key_exists("id", $_SESSION) && in_array($_SESSION["id"], array($blog['id_author'], $blog["id_coauthor"]))): %}
+        <div style="width: 40%; text-align: center; margin:0 auto;">
+            <a href="creapost?id_blog={{$blog['id']}}"><button type="button" class="btn btn-primary btn-lg btn-block"> + ADD POST</button></a>
+        </div>
+    {% endif %}
+
+    <hr>
+
+
+    {% foreach($posts as $post): %}
+        {% include templating/single_block_post.html %}
+        <hr>
+    {% endforeach %}
+
+    <div style="text-align: center" class="margin_top_30">
+        Pagina:
+        {% for ($i = 1; $i < $pagination+1; $i++): %}
+        {% if ($actual_page != $i): %}
+        <a class="" href="?id={{$blog['id']}}&page={{$i}}">
+            {% endif %}
+            {{$i}}
+            {% if ($actual_page != $i): %}
+        </a>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

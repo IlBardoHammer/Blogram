@@ -1,0 +1,109 @@
+{% list($search_arguments, $n_search_arguments) = ArgumentModel::getAllTopArguments(); %}
+
+
+<!-- header -->
+<header class="position-relative">
+    <!-- header inner -->
+    <div class="head_top">
+        <div class="header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <a href="home" title="Homepage">
+                                        <img style="width: 65px;padding-top:10px;" src="public/static/images/Blogram_logo.png">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <div class="row">
+                            <div class="col">
+                                <nav class="navigation navbar navbar-expand-md navbar-dark d-block">
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                            data-target="#navbarsExample04"
+                                            aria-controls="navbarsExample04" aria-expanded="false"
+                                            aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <div class="collapse navbar-collapse" id="navbarsExample04">
+                                        <ul class="navbar-nav mr-auto d-lg-flex align-items-center">
+                                            <section class="banner_main d-block">
+                                                <div class="container">
+                                                    <div class="row d_flex justify-content-end">
+                                                        <div class="col justify-content-end">
+                                                            <div class="pl-2 pr-2 pt-2 pb-2 bg-white rounded float-right"
+                                                                 id="div_form_search">
+                                                                <form class="form-inline" id="form_search" action="blogs"
+                                                                      method="POST">
+                                                                    <select multiple data-style="bg-white shadow-sm "
+                                                                            class="selectpicker form-control form-control-sm"
+                                                                            name="search_arguments[]">
+                                                                        {% foreach($search_arguments as $s_argument): %}
+                                                                        <option value="{{$s_argument['id']}}">
+                                                                            {{ ucfirst($s_argument["name"]) }}
+                                                                        </option>
+                                                                        {% endforeach %}
+                                                                    </select>
+                                                                    <div class="form-group ml-2">
+                                                                        <input type="text"
+                                                                               class="form-control form-control-sm"
+                                                                               id="search_author_username"
+                                                                               placeholder="Inserisci username"
+                                                                               name="search_author_username">
+                                                                    </div>
+                                                                    <div class="form-group ml-2">
+                                                                        <input type="text"
+                                                                               class="form-control form-control-sm"
+                                                                               id="search_blog_name"
+                                                                               placeholder="Inserisci il nome del blog"
+                                                                               name="search_blog_name">
+                                                                    </div>
+                                                                    <div class="form-group ml-2">
+                                                                        <input type="text"
+                                                                               class="form-control form-control-sm"
+                                                                               id="search_title_post"
+                                                                               placeholder="Inserisci il titolo del post"
+                                                                               name="search_title_post">
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                            class="btn ml-2 btn-sm search-btn-filter"><i
+                                                                            class="fa fa-search"></i> Cerca
+                                                                    </button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                            <li class="nav-item h-100">
+                                                {% if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true): %}
+                                                <button type="button" class="btn rounded-circle bg-theme-color" id="user_btn">{{
+                                                    ucfirst($_SESSION["username"][0]) }}
+                                                </button>
+
+                                                <ul class="pt-2 pb-2 pl-4 pr-4" id="user_actions_div">
+                                                    <li class="mb-2 pl-1 pr-1"><a class="" href="myblogs">My Blogs</a></li>
+                                                    <li class="mb-2 pl-1 pr-1"><a class="" href="author">Account</a></li>
+                                                    <li class="mb-2 pl-1 pr-1"><a class="" href="logout">Logout</a></li>
+                                                </ul>
+                                                {% else: %}
+                                                <a class="btn text-white" id="login_visitor" href="login">Login</a>
+                                                <a class="btn text-white" id="register_visitor" href="register">Register</a>
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- end banner -->

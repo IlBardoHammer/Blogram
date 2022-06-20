@@ -1,0 +1,57 @@
+{% extends base.html %}
+
+{% block title %}Crea Blog{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Blog creation...</h1>
+<div class="col-5 container border rounded bg-light">
+<form class="col-11" action="creablog" method="post" id="form1" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="blogname">Blog title</label>
+        <input type="name" class="form-control" id="blogname" name="blogname" placeholder="Insert blog name..." required>
+    </div>
+    <div class="form-group">
+        <label>Select Your Argument</label>
+        <select class="form-control" id="blogargument" name="blogargument">
+        {% foreach($arguments as $argument): %}
+        <option value="{{$argument['id']}}">
+            {{ $argument["parent_argument_name"]?ucfirst($argument["parent_argument_name"])." -> ":"" }} {{ ucfirst($argument["name"]) }}
+        </option>
+        {% endforeach %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="blogtheme">Select Your Theme</label>
+        <select class="form-control" id="blogtheme" name="blogtheme">
+            {% foreach($themes as $theme): %}
+            <option value="{{$theme['id']}}">
+                {{ ucfirst($theme["name"]) }}
+            </option>
+            {% endforeach %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="blogcoauthor">Select Co-Author</label>
+        <select class="form-control" id="blogcoauthor" name="blogcoauthor">
+            <option value="" selected disabled hidden>Choose here</option>
+            {% foreach($authors as $author): %}
+                {% if ($author['id'] != $_SESSION['id']): %}
+                    <option value="{{$author['id']}}">
+                        {{ ($author["username"]) }}
+                    </option>
+                {% endif %}}
+            {% endforeach %}
+        </select>
+    </div>
+    <div>
+        <label for="cover">Choose a cover picture:</label>
+        <input type="file" id="cover" name="cover" accept="image/png, image/jpeg">
+    </div>
+    <div class="col-md-12 text-right">
+    <div class="mt-3"><h3 id="error_message" class="text-danger">{{ $error }}</h3></div>
+    <button class="btn btn-sm bg-dark mb-3 text-white" type="submit" form="form1" value="Submit">Submit</button>
+    </div>
+</form>
+
+</div>
+{% endblock %}

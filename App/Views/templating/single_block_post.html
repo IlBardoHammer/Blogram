@@ -1,0 +1,35 @@
+<div class="row margin_top_30" style="text-align: left !important">
+    <div class="col-sm-2">
+        <div class="picture">
+            <a href="post?id={{$post['id']}}">
+                <img alt="Opt wizard thumbnail" style="border: 1px solid #DDD;" src="public/static/contents/post_images/{{ explode(',', $post['images'])[0] ?: 'default.png' }}">
+            </a>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <h4>
+            <b><a href="post?id={{$post['id']}}" class="posttitle">{{$post['title']}}</a></b>
+            <div class="label label-info postauthor">@{{$post['author_username']}} {% if (array_key_exists("username", $_SESSION) && $_SESSION["username"] == $post['author_username']): %} <span class="badge badge-info">You</span> {% endif %} in "{{$post['blog_name']}}"</div>
+        </h4>
+        <h5>
+            <i class="fa fa-calendar"></i>
+            {{$post['date_hours']}} <span>({{$post["visite"]}} views)</span>
+        </h5>
+
+    </div>
+    <div class="col-sm-4" data-no-turbolink="">
+        <div style="height: 40px;">
+        <a class="btn btn-info btn-download btn-round pull-right makeLoading" href="post?id={{$post['id']}}">
+            <i class="fa fa-share"></i> View
+        </a>
+        </div>
+        {% if (array_key_exists("id", $_SESSION) && $_SESSION["id"] == $post['id_author']): %}
+        <div style="height: 40px;">
+        <a class="btn btn-info btn-danger btn-round pull-right makeLoading" href="deletepost?id={{$post['id']}}"
+           onclick="return confirm('Are you sure?');">
+            <i class="fa fa-trash"></i> Delete
+        </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
